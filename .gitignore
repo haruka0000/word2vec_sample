@@ -1,3 +1,6 @@
 SHIFT-JIS
 UTF-8
 .python-version
+secret.json
+twitter/secret.json
+twitter/wikipedia_title.dic
