@@ -21,34 +21,35 @@ api = tweepy.API(auth)
 # Twitter APIをPythonから操作するための準備完了
 print('Done!')
 
-def Search(word):
-  search_result = api.search(q=word, count=200, until="2016-06-13")
+def search(word):
+  txt = word + ' -rt -【自動】-【定期】-http -https -【 -/'
+  search_result = api.search(q=txt, count=200)
   last_at = list(search_result)[-1].created_at
+  print(last_at)
   result = {"results":search_result, "last_at":last_at}
   return result
 
-def Write(word):
-  date = datetime.date.today()
-  print(date)
-  # 追記モードで出力
-  f = open( "test.txt", "a" )
-  txt = word + ' -rt -【自動】-【定期】-http -https -【 -/'
-
-  search = Search(txt)
-  for result in search["results"]:	
-    try:
-      f.write(result.text)
-    except:
-      print('ERROR')
-  date = str(search["last_at"])[0:10]
-  f.close()
-
 if __name__ == "__main__":
-  f = open('test.txt')
-  text = f.read()
-  f.close()
-  name = list(set(N.collect(text)))
-  for n in name:
-    Write(n)
+  word = "井上麻里奈"
+  all_word = []
+  
+  # 追記モードで出力
+  f = open( "text.txt", "a" )
+  
+  # すべてのtextから名詞を抽出
+  for r in search(word)["results"]: 
+    print(r.text)
+    all_word = all_word + N.collect(r.text)
+    f.write(r)  # textの書き出し
 
-  #Write('井上麻里奈')
+  top10_word = []
+  for t in N.count(all_word):
+    print(t[0])
+    top10_word.append(t[0])
+
+  # 数の多い上位１０個に関するtextを再度集める
+  for aw in top10_word:
+    for r2 in search(aw)["results"]:
+      f.write(r2)
+
+  f.close()

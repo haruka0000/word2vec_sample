@@ -1,11 +1,14 @@
 import MeCab
 import sys
+from collections import Counter
 
-def collect(text):
+
+def collect(t):
   userdic_path="./wikipedia_title.dic"
   mt = MeCab.Tagger("-Ochasen -u " + userdic_path)
   mt.parse('')
-  node = mt.parseToNode(text)
+  print(type(t))
+  node = mt.parseToNode(t)
   n = []
   while node:
     word_class = node.feature.split(',')
@@ -16,13 +19,13 @@ def collect(text):
   #n = n[1:-1]
   return n
 
-if __name__ == '__main__':
-  f = open('test.txt')
-  text = f.read()
-  f.close()
-  
-  n = list(set(collect(text)))
 
-  f = open('text.txt', 'w')
-  f.write(' '.join(n))
-  f.close()
+def count(words):
+  counter = Counter(words)
+  # 上位10個の単語と個数を返す
+  return counter.most_common(10)
+
+
+
+if __name__ == '__main__':
+  count(['aaa','bbb','aaa','ccc'])
