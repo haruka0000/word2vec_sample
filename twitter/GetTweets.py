@@ -40,7 +40,7 @@ if __name__ == "__main__":
   for r in search(word)["results"]: 
     print(r.text)
     all_word = all_word + N.collect(r.text)
-    f.write(r)  # textの書き出し
+    f.write(r.text)  # textの書き出し
 
   top10_word = []
   for t in N.count(all_word):
@@ -50,6 +50,6 @@ if __name__ == "__main__":
   # 数の多い上位１０個に関するtextを再度集める
   for aw in top10_word:
     for r2 in search(aw)["results"]:
-      f.write(r2)
+      f.write(r2.text)
 
   f.close()
