@@ -22,15 +22,16 @@ api = tweepy.API(auth)
 print('Done!')
 
 def search(word):
-  txt = word + ' -rt -【自動】-【定期】-http -https -【 -/'
+  txt = word + '-RT -【自動】-【定期】-http -https -【 -/'
   search_result = api.search(q=txt, count=200)
-  last_at = list(search_result)[-1].created_at
+  last_at = list(search_result)[0].created_at
   print(last_at)
   result = {"results":search_result, "last_at":last_at}
+  print(api.rate_limit_status()['resources']['search']['/search/tweets'])
   return result
 
 if __name__ == "__main__":
-  word = "井上麻里奈"
+  word = "広島"
   all_word = []
   
   # 追記モードで出力
@@ -38,17 +39,18 @@ if __name__ == "__main__":
   
   # すべてのtextから名詞を抽出
   for r in search(word)["results"]: 
-    print(r.text)
+    #print(r.text)
     all_word = all_word + N.collect(r.text)
     f.write(r.text)  # textの書き出し
 
   top10_word = []
   for t in N.count(all_word):
-    print(t[0])
+    #print(t[0])
     top10_word.append(t[0])
 
-  # 数の多い上位１０個に関するtextを再度集める
+  # 数の多い上位50個に関するtextを再度集める
   for aw in top10_word:
+    print(aw)
     for r2 in search(aw)["results"]:
       f.write(r2.text)
 
