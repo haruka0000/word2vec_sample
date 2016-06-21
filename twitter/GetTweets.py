@@ -24,21 +24,19 @@ print('Done!')
 def search(word):
   txt = word + '-RT -【自動】-【定期】-http -https -【 -/'
   search_result = api.search(q=txt, count=200)
-  last_at = list(search_result)[0].created_at
-  print(last_at)
-  result = {"results":search_result, "last_at":last_at}
+  result = search_result
   print(api.rate_limit_status()['resources']['search']['/search/tweets'])
   return result
 
 if __name__ == "__main__":
-  word = "広島"
+  word = input(">>")
   all_word = []
   
-  # 追記モードで出力
-  f = open( "text.txt", "a" )
+  # 書き込みモードで出力
+  f = open( "text.txt", "w" )
   
   # すべてのtextから名詞を抽出
-  for r in search(word)["results"]: 
+  for r in search(word): 
     #print(r.text)
     all_word = all_word + N.collect(r.text)
     f.write(r.text)  # textの書き出し
@@ -51,7 +49,7 @@ if __name__ == "__main__":
   # 数の多い上位50個に関するtextを再度集める
   for aw in top10_word:
     print(aw)
-    for r2 in search(aw)["results"]:
+    for r2 in search(aw):
       f.write(r2.text)
 
   f.close()
