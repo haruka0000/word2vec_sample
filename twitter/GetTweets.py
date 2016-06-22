@@ -33,7 +33,7 @@ if __name__ == "__main__":
   all_word = []
   
   # 書き込みモードで出力
-  f = open( "text.txt", "w" )
+  f = open( "text.txt", "a" )
   
   # すべてのtextから名詞を抽出
   for r in search(word): 
