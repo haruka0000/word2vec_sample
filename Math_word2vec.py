@@ -1,29 +1,31 @@
 from gensim.models import word2vec
 
-# 学習済みモデルのロード
-model = word2vec.Word2Vec.load("sample.model")
+if __name__=='__main__':
+  start = "平和"
+  goal = "戦争"
+  similarities = {}
+  # 学習済みモデルのロード
+  model = word2vec.Word2Vec.load("sample.model")
+ 
+  out=model.most_similar(positive=[start], negative=[])
+  for o in out:
+    print(o)
+  print()
+  out=model.most_similar(positive=[goal], negative=[])
+  for o in out:
+    print(o)
+  print()
 
-while True:
-  print("(word1)ENTER   OR   (word1) (+ or -) (word2)ENTER")
-  words = input('>> ').split(" ")
-
-  ## word1
-  word1 = words[0]
-
-  ## 演算
-  if len(words) == 3:
-  
-    word2 = words[2]
-    ## 演算記号
-    math = words[1]
-  
-    if math == "+":   ## word1 + word2
-      out=model.most_similar(positive=[word1,word2])
-    if math == "-":   ## word1 - word2
-      out=model.most_similar(positive=[word1], negative=[word2])
-  else :   ## word1
-    out=model.most_similar(positive=[word1])
-  
-  for x in out:
-    print(x[0],x[1])
-  print("\n")
+  intention = start
+  while intention[0] != goal:
+    out=model.most_similar(positive=[intention], negative=[])
+    for o in out:
+      similarities[o[0]] = model.similarity(goal,o[0])
+ 
+    most_similar = sorted(similarities.items(), key=lambda x: x[1], reverse=True)[0]
+    if most_similar[0] == intention[0]:
+      print("The word can no longer go near")
+      break
+    else:
+      intention = most_similar
+      print(intention)

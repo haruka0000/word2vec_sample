@@ -1,4 +1,4 @@
-SHIFT-JIS
+HIFT-JIS
 UTF-8
 .python-version
 secret.json
@@ -6,3 +6,11 @@ twitter/secret.json
 twitter/wikipedia_title.dic
 wikipedia.db
 jawiki-latest-abstract.xml
+jawiki-latest-pages-articles1.xml
+wiki_text.txt
+sample.model
+sample.model.syn0.npy
+sample.model.syn1neg.npy
+data.txt
+text.txt
+wiki_text.txt
