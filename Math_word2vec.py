@@ -1,8 +1,8 @@
 from gensim.models import word2vec
 
 if __name__=='__main__':
-  start = "平和"
-  goal = "戦争"
+  start = "国"
+  goal = "人"
   similarities = {}
   # 学習済みモデルのロード
   model = word2vec.Word2Vec.load("sample.model")
