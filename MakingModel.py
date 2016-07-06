@@ -6,8 +6,8 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 
 
 data = word2vec.Text8Corpus("data.txt")
-model = word2vec.Word2Vec(data, size=400)
+model = word2vec.Word2Vec(data, size=200, min_count=20, window=15)
 
 # 学習結果を出力する
-model.save("sample.model")
+model.save("sample(size200_mc20_w15).model")
 

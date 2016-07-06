@@ -1,6 +1,6 @@
 from xml.etree import ElementTree
 
-XMLFILE = "jawiki-latest-pages-articles1.xml"
+XMLFILE = "jawiki-latest-pages-articles2.xml"
 
 tree = ElementTree.parse(XMLFILE)  # ファイルから読み込み
 root = tree.getroot()
