@@ -22,7 +22,7 @@ def plot(ary):
   fig = plt.figure()
   
   ax = fig.add_subplot(1,1,1)
-  ax.set_title('first scatter plot')
+  ax.set_title('話題誘導ルート', fontproperties = fp)
   ax.set_xlabel('話題転換回数', fontproperties = fp)
   ax.set_ylabel('類似度', fontproperties = fp)
   #plt.ylim(0,1.0)
@@ -38,9 +38,9 @@ def plot(ary):
       plt.text(i, value_list[i][j], key_list[i][j], ha = 'center', va = 'top', fontproperties = fp)
 
   plt.plot(mkl, '-o')
+
+  plt.savefig("route.png")
   plt.show()
-
-
 
 def getRoute(start, goal, file_name):
   similarities = {}
@@ -68,7 +68,7 @@ def getRoute(start, goal, file_name):
       similarities[nw[0]] = model.similarity(goal,nw[0])    # 付近のワードとゴールのワードの類似度を取得
       print("\t",nw[0],"\t\t",str(int(similarities[nw[0]] * 100)),"%")
  
-    nr_rslts = sorted(similarities.items(), key=lambda x: x[1], reverse=True)
+    nr_rslts = sorted(similarities.items(), key=lambda x: x[1], reverse=True)[:5]
     parray.append(nr_rslts)
     most_similar = nr_rslts[0]
 
@@ -82,7 +82,7 @@ def getRoute(start, goal, file_name):
   plot(parray)
 
 if __name__=='__main__':
-  start = "高専"
-  goal = "美人"
-  file_name = "sample(size200_mc20_w15).model" 
+  start = "広島東洋カープ"
+  goal = "渦潮"
+  file_name = "sample(size100_mc20_w10).model" 
   getRoute(start, goal, file_name)
